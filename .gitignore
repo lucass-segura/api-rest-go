@@ -12,6 +12,9 @@
 *.so
 *.dylib
 
+# Enviorments
+.env
+
 # Test binary, built with `go test -c`
 *.test
 
@@ -23,5 +26,4 @@
 
 # Go workspace file
 go.work
-
 # End of https://www.toptal.com/developers/gitignore/api/go

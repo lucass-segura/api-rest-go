@@ -1,6 +1,10 @@
 package main
 
 import (
+	"log"
+	"path/filepath"
+
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/lucass-segura/go-echo-restapi/db"
 	"github.com/lucass-segura/go-echo-restapi/models"
@@ -8,6 +12,8 @@ import (
 )
 
 func main() {
+	loadEnv()
+
 	db.DBconnection()
 	db.DB.AutoMigrate(models.Task{})
 	db.DB.AutoMigrate(models.User{})
@@ -28,4 +34,12 @@ func main() {
 	e.DELETE("/task/:id", routes.DeleteTaskHandler)
 
 	e.Logger.Fatal(e.Start(":8001")) //comenzará a escuchar las solicitudes entrantes en ese puerto
+}
+
+func loadEnv() {
+	envFile := filepath.Join("db", ".env")
+	err := godotenv.Load(envFile)
+	if err != nil {
+		log.Println("Error loading .env file")
+	}
 }

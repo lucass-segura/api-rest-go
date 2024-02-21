@@ -2,15 +2,24 @@ package db
 
 import (
 	"log"
+	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-var DSN = "host=localhost user=glow password=1234 dbname=gorm port=5434 sslmode=disable" //DatabaseStriNg
 var DB *gorm.DB
 
 func DBconnection() {
+	host := os.Getenv("DB_HOST")
+	user := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASSWORD")
+	dbname := os.Getenv("DB_NAME")
+	port := os.Getenv("DB_PORT")
+	sslmode := os.Getenv("DB_SSL_MODE")
+
+	var DSN = "host=" + host + " user=" + user + " password=" + password + " dbname=" + dbname + " port=" + port + " sslmode=" + sslmode
+
 	var error error
 	DB, error = gorm.Open(postgres.Open(DSN), &gorm.Config{})
 

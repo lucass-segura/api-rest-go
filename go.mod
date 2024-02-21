@@ -2,9 +2,9 @@ module github.com/lucass-segura/go-echo-restapi
 
 go 1.22.0
 
-require (
-	github.com/labstack/echo/v4 v4.11.4
-)
+require github.com/labstack/echo/v4 v4.11.4
+
+require github.com/joho/godotenv v1.5.1
 
 require (
 	github.com/jackc/pgpassfile v1.0.0 // indirect
