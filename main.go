@@ -32,6 +32,7 @@ func main() {
 	e.GET("/task/:id", routes.GetTaskHandler)
 	e.POST("/task", routes.PostTaskHandler)
 	e.DELETE("/task/:id", routes.DeleteTaskHandler)
+	e.PUT("/task/:id", routes.UpdateTaskHandler)
 
 	e.Logger.Fatal(e.Start(":8001")) //comenzará a escuchar las solicitudes entrantes en ese puerto
 }

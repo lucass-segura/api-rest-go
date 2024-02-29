@@ -3,6 +3,7 @@ package routes
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -66,4 +67,26 @@ func DeleteTaskHandler(c echo.Context) error {
 	db.DB.Unscoped().Delete(&task, taskID)
 
 	return c.String(http.StatusAccepted, "Task delete")
+}
+
+func UpdateTaskHandler(c echo.Context) error {
+	var task models.Task
+	id := c.Param("id")
+	idTask, err := strconv.Atoi(id)
+
+	if err != nil {
+		return c.String(http.StatusBadRequest, "Invalid task ID")
+	}
+
+	log.Print(idTask, task.ID)
+
+	if idTask == 0 {
+		return c.String(http.StatusNotFound, "Not found task ID")
+	}
+
+	db.DB.First(&task, idTask)
+	json.NewDecoder(c.Request().Body).Decode(&task)
+	db.DB.Updates(&task)
+
+	return c.String(http.StatusAccepted, "Status change")
 }
